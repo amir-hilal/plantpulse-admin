@@ -1,12 +1,15 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import api from '../services/api';
 
 // Async action for logging in
 export const loginUser = createAsyncThunk(
   'auth/loginUser',
-  async ({ email, password }, { rejectWithValue }) => {
+  async ({ email_or_username, password }, { rejectWithValue }) => {
     try {
-      const response = await api.post('/login', { email, password });
+      const response = await api.post('/login', {
+        email_or_username,
+        password,
+      });
       const { token } = response.data;
       localStorage.setItem('token', token);
       return token;
@@ -25,9 +28,9 @@ const authSlice = createSlice({
   },
   reducers: {
     logout: (state) => {
-      localStorage.removeItem('token');  
+      localStorage.removeItem('token'); // Remove token on logout
       state.token = null;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -43,7 +46,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       });
-  }
+  },
 });
 
 export const { logout } = authSlice.actions;

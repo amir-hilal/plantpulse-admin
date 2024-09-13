@@ -4,7 +4,7 @@ import { loginUser } from '../redux/authSlice';
 import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
-  const [emailOrUsername, setEmailOrUsername] = useState('');  // New state to accept either email or username
+  const [email_or_username, setEmailOrUsername] = useState('');  // New state to accept either email or username
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(loginUser({ emailOrUsername, password })).then((result) => {
+    dispatch(loginUser({ email_or_username, password })).then((result) => {
       if (result.meta.requestStatus === 'fulfilled') {
         navigate('/');  // Redirect to homepage/dashboard upon successful login
       }
@@ -29,7 +29,7 @@ const LoginPage = () => {
           <input
             type="text"
             className="p-inputtext w-full"
-            value={emailOrUsername}
+            value={email_or_username}
             onChange={(e) => setEmailOrUsername(e.target.value)}
             required
           />
