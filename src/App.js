@@ -4,6 +4,7 @@ import AddTutorial from './components/AddTutorial';
 import TutorialDetail from './components/TutorialDetail';
 import DashboardPage from './pages/DashboardPage';
 import TutorialsPage from './pages/TutorialsPage';
+import NavBar from './components/NavBar';
 
 function App() {
   return (
