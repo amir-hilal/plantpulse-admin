@@ -54,20 +54,25 @@ const TutorialCard = ({ tutorial }) => {
     <div className="col-12 md:col-4 lg:col-3 md:m-3 cursor-pointer">
       <div>
         {/* Display YouTube Thumbnail */}
-        <img
-          src={tutorial.thumbnail_url}
-          alt={tutorial.title}
-          onClick={handleViewPost}
-          className="w-full border-round-xl"
-        />
+        <div className="relative mb-1">
+          <img
+            src={tutorial.thumbnail_url}
+            alt={tutorial.title}
+            onClick={handleViewPost}
+            className="w-full border-round-xl"
+          />
+          <p className="absolute right-0 bottom-0 text-xs border-round-md surface-50 p-1 mr-1">
+            {tutorial.duration}
+          </p>
+        </div>
 
         {/* Tutorial Information */}
-        <div className="flex justify-content-between">
+        <div className="flex justify-content-between align-items-center">
           <h4
-            className="text-left font-light m-0 mt-2 text-base"
+            className="text-left font-light m-0 text-base p-0 flex align-items-center "
             onClick={handleViewPost}
           >
-            {tutorial.title}
+            <strong> {tutorial.title}</strong>
           </h4>
           <div className="relative flex align-items-center">
             <FaEllipsisH
@@ -80,7 +85,7 @@ const TutorialCard = ({ tutorial }) => {
                   className="text-sm p-2 border-none bg-transparent cursor-pointer hover:bg-primary-reverse text-left"
                   onClick={handleCopyLink}
                 >
-                  Copy Post Link
+                  Copy Link
                 </button>
                 <button
                   className="text-sm p-2 border-none bg-transparent cursor-pointer hover:bg-primary-reverse"
@@ -95,11 +100,8 @@ const TutorialCard = ({ tutorial }) => {
 
         {/* Additional Tutorial Details */}
         <div className="text-left mt-2">
-          <p className="text-sm">
-            <strong>Views:</strong> {tutorial.views}
-          </p>
-          <p className="text-sm">
-            <strong>Duration:</strong> {tutorial.duration}
+          <p className=" text-xs text-grey m-0">
+             {tutorial.views} views
           </p>
         </div>
       </div>
