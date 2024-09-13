@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import logo from '../assets/images/Logo.png';
 
 const NavBar = () => {
   const [mobileMenuVisible, setMobileMenuVisible] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMobileMenu = () => {
     setMobileMenuVisible(!mobileMenuVisible);
@@ -24,13 +26,17 @@ const NavBar = () => {
     };
   }, []);
   return (
-    <nav className="surface-0 border-bottom-1 surface-border shadow-2 p-3">
+    <nav className="bg-secondary border-bottom-1 surface-border shadow-1 p-3">
       <div className="flex align-items-center justify-content-between p-0">
         {/* Left Side (Logo/Title) */}
         <div className=" flex align-items-center">
-          <Link to="/" className="text-2xl text-primary font-bold  no-underline hover:bg-primary-reverse">
-            PlantPulse
-          </Link>
+          <img
+            src={logo}
+            alt="App Logo"
+            height={40}
+            className="cursor-pointer"
+            onClick={() => navigate('/')}
+          />
         </div>
 
         {/* Center Links for desktop */}
@@ -38,17 +44,26 @@ const NavBar = () => {
         <div className="hidden md:flex   justify-content-center hidden md:flex">
           <ul className="flex gap-3 align-items-center list-none p-0 m-0">
             <li>
-              <Link to="/" className="text-lg text-grey no-underline hover:text-primary">
+              <Link
+                to="/"
+                className="text-lg text-tint-5 no-underline hover:text-primary"
+              >
                 Dashboard
               </Link>
             </li>
             <li>
-              <Link to="/tutorials" className="text-lg text-grey no-underline hover:text-primary">
+              <Link
+                to="/tutorials"
+                className="text-lg text-tint-5 no-underline hover:text-primary"
+              >
                 Tutorials
               </Link>
             </li>
             <li>
-              <Link to="/add-tutorial" className="text-lg text-grey no-underline hover:text-primary">
+              <Link
+                to="/add-tutorial"
+                className="text-lg text-tint-5 no-underline hover:text-primary"
+              >
                 Add Tutorial
               </Link>
             </li>
@@ -80,7 +95,7 @@ const NavBar = () => {
 
       {/* Mobile Menu Links */}
       {mobileMenuVisible && (
-        <div className="flex p-0 flex-column gap-2 p-3 surface-card align-items-end">
+        <div className="bg-secondary flex p-0 flex-column gap-2 p-3 align-items-end">
           <Link to="/profile">
             <img
               src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png"
@@ -89,13 +104,22 @@ const NavBar = () => {
               style={{ width: '40px', height: '40px' }}
             />
           </Link>
-          <Link to="/" className="text-lg text-grey no-underline hover:text-primary">
+          <Link
+            to="/"
+            className="text-lg text-grey no-underline hover:text-primary"
+          >
             Dashboard
           </Link>
-          <Link to="/tutorials" className="text-lg text-grey no-underline hover:text-primary">
+          <Link
+            to="/tutorials"
+            className="text-lg text-grey no-underline hover:text-primary"
+          >
             Tutorials
           </Link>
-          <Link to="/add-tutorial" className="text-lg text-grey no-underline hover:text-primary">
+          <Link
+            to="/add-tutorial"
+            className="text-lg text-grey no-underline hover:text-primary"
+          >
             Add Tutorial
           </Link>
         </div>
