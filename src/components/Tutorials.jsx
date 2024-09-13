@@ -19,11 +19,11 @@ const Tutorials = () => {
   }
 
   return (
-    <div className="grid grid-nogutter">
-      <h1 className="col-12 text-2xl mb-4">Gardening Tutorials</h1>
+    <div className="flex flex-column">
+      <h1 className=" p-0 text-2xl mb-4">Gardening Tutorials</h1>
 
       {/* Search and filter section */}
-      <div className="col-12 flex justify-content-between align-items-center mb-4">
+      <div className=" flex justify-content-between align-items-center mb-4">
         <div className="flex align-items-center">
           <select className="p-inputtext">
             <option value="">Category</option>
@@ -31,16 +31,24 @@ const Tutorials = () => {
           </select>
         </div>
         <div className="flex align-items-center">
-          <input type="text" className="p-inputtext p-2" placeholder="Search for anything" />
+          <input
+            type="text"
+            className="p-inputtext p-2"
+            placeholder="Search for anything"
+          />
         </div>
       </div>
 
       {/* Tutorials Grid */}
-      <div className="col-12 grid">
+      <div className="col-12 grid p-0">
         {tutorials.map((tutorial) => (
           <div key={tutorial.id} className="col-12 md:col-6 lg:col-4 mb-4">
             <div className="p-card">
-              <img src={tutorial.thumbnail_url} alt={tutorial.title} className="w-full" />
+              <img
+                src={tutorial.thumbnail_url}
+                alt={tutorial.title}
+                className="w-full"
+              />
               <div className="p-card-content">
                 <h3>{tutorial.title}</h3>
                 <p>{tutorial.description}</p>

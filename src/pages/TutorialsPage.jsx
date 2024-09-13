@@ -20,11 +20,11 @@ const Tutorials = () => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="grid justify-content-center mt-4">
-      <div className="col-12">
+    <div className="flex flex-column justify-content-center mt-4">
+      <div className="w-full">
         <h2 className="text-center">Gardening Tutorials</h2>
       </div>
-      <div className="col-12 grid justify-content-between">
+      <div className="w-full grid p-0 justify-content-between">
         {tutorials.map((tutorial) => (
           <div key={tutorial.id} className="col-12 md-4 lg-3 sm-12 mb-3">
             <div className="card shadow-2 card-body">
