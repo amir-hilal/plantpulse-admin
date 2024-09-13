@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import AddTutorial from './components/AddTutorial';
+import NavBar from './components/NavBar';
 import ProtectedRoute from './components/ProtectedRoute';
 import TutorialDetail from './components/TutorialDetail';
 import DashboardPage from './pages/DashboardPage';
@@ -10,6 +11,7 @@ import TutorialsPage from './pages/TutorialsPage';
 function App() {
   return (
     <Router>
+      <NavBar />
       <Routes>
         {/* Public routes */}
         <Route path="/login" element={<LoginPage />} />
