@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { FaEllipsisH } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import ConfirmationModal from './ConfirmationModal';
+import { useDispatch } from 'react-redux';
 
 const TutorialCard = ({ tutorial }) => {
   const [showPopover, setShowPopover] = useState(false);
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
+  const dispatch = useDispatch();
 
   const togglePopover = () => {
     setShowPopover(!showPopover);
@@ -23,11 +26,22 @@ const TutorialCard = ({ tutorial }) => {
     navigate(`/tutorials/${tutorial.id}`);
   };
 
-  const handleDelete = (post) => {
-    // setItemToDelete(post); // Set the item you want to delete
+  const handleDelete = (tutorial) => {
+    setItemToDelete(tutorial); // Set the item you want to delete
     setIsModalOpen(true);
   };
 
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setItemToDelete(null);
+  };
+
+  const handleConfirmDelete = () => {
+    // dispatch(deleteTutorial(itemToDelete.id));
+
+    setIsModalOpen(false);
+    setItemToDelete(null);
+  };
   return (
     <div onClick={handleViewPost} className="col-12 md:col-4 lg:col-3 md:m-3">
       <div>

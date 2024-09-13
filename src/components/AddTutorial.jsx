@@ -65,7 +65,7 @@ const AddTutorial = () => {
         <div className="mb-5">
           <label>Thumbnail URL</label>
           <input
-            type="url"
+            type="text"
             value={thumbnailUrl}
             onChange={(e) => setThumbnailUrl(e.target.value)}
             required
