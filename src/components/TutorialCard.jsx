@@ -27,8 +27,11 @@ const TutorialCard = ({ tutorial }) => {
     return views;
   };
 
-  // Format the duration to remove '00:' if no hours
   const formatDuration = (duration) => {
+    if (!duration) {
+      return 'N/A'; // Return 'N/A' or any default value if duration is undefined or invalid
+    }
+
     const parts = duration.split(':');
     if (parts.length === 3 && parts[0] === '00') {
       return `${parts[1]}:${parts[2]}`; // Only minutes and seconds
