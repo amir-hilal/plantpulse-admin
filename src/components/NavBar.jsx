@@ -7,15 +7,38 @@ const NavBar = () => {
       <div className="grid align-items-center justify-content-between p-3">
         {/* Left Side (Logo/Title) */}
         <div className=" flex align-items-center">
-          <Link to="/" className="text-2xl text-primary font-bold">PlantPulse</Link>
+          <Link to="/" className="text-2xl text-primary font-bold no-underline">
+            PlantPulse
+          </Link>
         </div>
 
         {/* Center Links for desktop */}
         <div className=" flex justify-content-center hidden md:flex">
           <ul className="flex  w-auto gap-3 align-items-center list-none p-0 m-0">
-            <li><Link to="/" className="text-lg text-secondary no-underline w-auto text-grey hover:text-primary">Dashboard</Link></li>
-            <li><Link to="/tutorials" className="text-lg text-secondary no-underline w-auto">Tutorials</Link></li>
-            <li><Link to="/add-tutorial" className="text-lg text-secondary no-underline w-auto">Add Tutorial</Link></li>
+            <li>
+              <Link
+                to="/"
+                className="text-lg text-secondary no-underline w-auto text-grey hover:text-primary"
+              >
+                Dashboard
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/tutorials"
+                className="text-lg text-secondary no-underline w-auto text-grey hover:text-primary"
+              >
+                Tutorials
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/add-tutorial"
+                className="text-lg text-secondary no-underline w-auto text-grey hover:text-primary"
+              >
+                Add Tutorial
+              </Link>
+            </li>
           </ul>
         </div>
 
