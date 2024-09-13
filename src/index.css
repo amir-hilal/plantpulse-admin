@@ -326,7 +326,7 @@ code {
 }
 
 .text-grey-blue {
-  color: var(--grey_blue);
+  color: var(--grey_blue) !important;
 }
 
 .text-silver {

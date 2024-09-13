@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../assets/images/Logo.png';
+import { logout } from '../redux/authSlice';
 
 const NavBar = () => {
   const [mobileMenuVisible, setMobileMenuVisible] = useState(false);
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const toggleMobileMenu = () => {
     setMobileMenuVisible(!mobileMenuVisible);
   };
@@ -67,6 +69,14 @@ const NavBar = () => {
                 Add Tutorial
               </Link>
             </li>
+            <li>
+              <button
+                className="border-none bg-transparent text-grey hover:text-grey-blue cursor-pointer"
+                onClick={() => dispatch(logout())}
+              >
+                logout
+              </button>
+            </li>
           </ul>
         </div>
 
@@ -122,6 +132,12 @@ const NavBar = () => {
           >
             Add Tutorial
           </Link>
+          <button
+            className="border-none bg-transparent text-grey hover:text-error"
+            onClick={() => dispatch(logout())}
+          >
+            logout
+          </button>
         </div>
       )}
     </nav>

@@ -11,6 +11,7 @@ api.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+    config.headers.set('App-Type', 'admin');
     return config;
   },
   (error) => {
