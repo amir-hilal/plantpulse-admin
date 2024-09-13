@@ -28,6 +28,21 @@ export const deleteTutorial = createAsyncThunk(
   }
 );
 
+// Async thunk to add a tutorial
+export const addTutorial = createAsyncThunk(
+  'tutorials/addTutorial',
+  async (tutorialData, { rejectWithValue }) => {
+    try {
+      const response = await api.post('/tutorials', tutorialData);
+      toast.success('Tutorial added successfully!');
+      return response.data;
+    } catch (error) {
+      toast.error('Failed to add tutorial.');
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 const tutorialsSlice = createSlice({
   name: 'tutorials',
   initialState: {
@@ -85,9 +100,21 @@ const tutorialsSlice = createSlice({
         state.tutorials = state.tutorials.filter(
           (tutorial) => tutorial.id !== action.payload
         );
-        toast.success("Tutorial deleted.")
+        toast.success('Tutorial deleted.');
       })
       .addCase(deleteTutorial.rejected, (state, action) => {
+        state.error = action.payload;
+      })
+      // Handle adding a tutorial
+      .addCase(addTutorial.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(addTutorial.fulfilled, (state, action) => {
+        state.loading = false;
+        state.tutorials = [action.payload, ...state.tutorials]; // Add the new tutorial at the top
+      })
+      .addCase(addTutorial.rejected, (state, action) => {
+        state.loading = false;
         state.error = action.payload;
       });
   },

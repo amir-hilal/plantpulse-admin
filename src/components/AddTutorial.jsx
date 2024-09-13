@@ -1,33 +1,52 @@
 import React, { useState } from 'react';
-import api from '../services/api';
+import Loading from 'react-loading';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { addTutorial } from '../redux/tutorialsSlice';
 
 const AddTutorial = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [videoUrl, setVideoUrl] = useState('');
-  const [thumbnailUrl, setThumbnailUrl] = useState('');
+  const [tags, setTags] = useState(''); // Initialize tags as an empty string for input
+
+  const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.tutorials.loading);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Convert tags input (comma-separated) into an array
+    const tagsArray = tags
+      .split(',')
+      .map((tag) => tag.trim())
+      .filter((tag) => tag);
+
     const tutorialData = {
       title,
       description,
-      video_url: videoUrl, // Store the YouTube URL
-      thumbnail_url: thumbnailUrl,
+      video_url: videoUrl,
+      tags: tagsArray, // Send tags as an array
     };
 
-    try {
-      const response = await api.post('/tutorials', tutorialData);
-      console.log('Tutorial added:', response.data);
-    } catch (error) {
-      console.error('Error adding tutorial:', error);
-    }
+    dispatch(addTutorial(tutorialData))
+      .unwrap() // Ensure proper error handling with createAsyncThunk
+      .then(() => {
+        setTitle('');
+        setDescription('');
+        setVideoUrl('');
+        setTags('');
+        toast.success('Tutorial added successfully!');
+      })
+      .catch((error) => {
+        toast.error('Failed to add tutorial.');
+        console.error('Error adding tutorial:', error);
+      });
   };
 
   return (
     <>
-      {' '}
-      <h2 className='text-center'>Add Tutorial</h2>
+      <h2 className="text-center">Add Tutorial</h2>
       <form
         onSubmit={handleSubmit}
         className="flex flex-column px-6 py-3 border-round-xl m-4 justify-content-between surface-50"
@@ -63,26 +82,26 @@ const AddTutorial = () => {
           />
         </div>
         <div className="mb-5">
-          <label>Thumbnail URL</label>
+          <label>Tags (comma-separated)</label>
           <input
             type="text"
-            value={thumbnailUrl}
-            onChange={(e) => setThumbnailUrl(e.target.value)}
-            required
+            value={tags}
+            onChange={(e) => setTags(e.target.value)} // Update tags value
+            placeholder="e.g., gardening, plants, beginners"
             className="h-3rem text-xs md:text-base text-color bg-tint-5 p-3 border-1 border-solid border-400 border-round-lg appearance-none outline-none focus:border-primary w-full"
           />
         </div>
         <div className="mb-5">
           <button
             type="submit"
-            className="bg-primary border-round-lg border-none p-3 h-3rem  text-xs md:text-base w-full flex align-items-center justify-content-center cursor-pointer"
+            className="bg-primary border-round-lg border-none p-3 h-3rem text-xs md:text-base w-full flex align-items-center justify-content-center cursor-pointer"
+            disabled={isLoading} // Disable button while loading
           >
-            Add Tutorial
-            {/* {isLoading ? (
-          <Loading type="spin" color="#fff" height={15} width={15} />
-        ) : (
-          'Add Tutorial'
-        )} */}
+            {isLoading ? (
+              <Loading type="spin" color="#fff" height={15} width={15} />
+            ) : (
+              'Add Tutorial'
+            )}
           </button>
         </div>
       </form>
