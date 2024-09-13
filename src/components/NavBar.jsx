@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const NavBar = () => {
@@ -7,13 +7,28 @@ const NavBar = () => {
   const toggleMobileMenu = () => {
     setMobileMenuVisible(!mobileMenuVisible);
   };
+  // Function to close the mobile menu when resizing to a larger screen
+  const handleResize = () => {
+    if (window.innerWidth >= 768) {
+      // md breakpoint (768px)
+      setMobileMenuVisible(false);
+    }
+  };
 
+  // Add event listener for resizing
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    // Cleanup event listener when component unmounts
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   return (
     <nav className="surface-0 border-bottom-1 surface-border shadow-2 p-3">
       <div className="flex align-items-center justify-content-between p-0">
         {/* Left Side (Logo/Title) */}
         <div className=" flex align-items-center">
-          <Link to="/" className="text-2xl text-primary font-bold">
+          <Link to="/" className="text-2xl text-primary font-bold  no-underline hover:bg-primary-reverse">
             PlantPulse
           </Link>
         </div>
@@ -23,17 +38,17 @@ const NavBar = () => {
         <div className="hidden md:flex   justify-content-center hidden md:flex">
           <ul className="flex gap-3 align-items-center list-none p-0 m-0">
             <li>
-              <Link to="/" className="text-lg text-secondary">
+              <Link to="/" className="text-lg text-grey no-underline hover:text-primary">
                 Dashboard
               </Link>
             </li>
             <li>
-              <Link to="/tutorials" className="text-lg text-secondary">
+              <Link to="/tutorials" className="text-lg text-grey no-underline hover:text-primary">
                 Tutorials
               </Link>
             </li>
             <li>
-              <Link to="/add-tutorial" className="text-lg text-secondary">
+              <Link to="/add-tutorial" className="text-lg text-grey no-underline hover:text-primary">
                 Add Tutorial
               </Link>
             </li>
@@ -74,13 +89,13 @@ const NavBar = () => {
               style={{ width: '40px', height: '40px' }}
             />
           </Link>
-          <Link to="/" className="text-lg text-secondary">
+          <Link to="/" className="text-lg text-grey no-underline hover:text-primary">
             Dashboard
           </Link>
-          <Link to="/tutorials" className="text-lg text-secondary">
+          <Link to="/tutorials" className="text-lg text-grey no-underline hover:text-primary">
             Tutorials
           </Link>
-          <Link to="/add-tutorial" className="text-lg text-secondary">
+          <Link to="/add-tutorial" className="text-lg text-grey no-underline hover:text-primary">
             Add Tutorial
           </Link>
         </div>
