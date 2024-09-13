@@ -47,7 +47,7 @@ const Tutorials = () => {
       <div className="w-full">
         <h2 className="text-center">Gardening Tutorials</h2>
       </div>
-      <div className="w-full grid grid-nogutter p-0 justify-content-between">
+      <div className="lg:gap-1 grid grid-nogutter p-0 justify-content-between p-3">
         {tutorials.map((tutorial) => (
           <TutorialCard key={tutorial.id} tutorial={tutorial} />
         ))}

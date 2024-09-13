@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import AddTutorial from './components/AddTutorial';
 import NavBar from './components/NavBar';
 import ProtectedRoute from './components/ProtectedRoute';
