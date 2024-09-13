@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import AddTutorial from './components/AddTutorial';
 import NavBar from './components/NavBar';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -11,6 +12,7 @@ import TutorialsPage from './pages/TutorialsPage';
 function App() {
   return (
     <Router>
+      <ToastContainer />
       <NavBar />
       <Routes>
         {/* Public routes */}
