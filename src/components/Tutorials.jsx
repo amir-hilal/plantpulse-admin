@@ -1,29 +1,54 @@
-import React from 'react';
-import { Link } from 'react-router-dom'; // Assuming you'll use react-router
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchTutorials } from '../redux/tutorialsSlice';
 
 const Tutorials = () => {
-  const [tutorials, setTutorials] = React.useState([]);
+  const dispatch = useDispatch();
+  const { tutorials, loading, error } = useSelector((state) => state.tutorials);
 
-  React.useEffect(() => {
-    // Fetch tutorials data from the API
-    setTutorials([
-      { id: 1, title: 'Tutorial 1', views: 100 },
-      { id: 2, title: 'Tutorial 2', views: 200 }
-    ]);
-  }, []);
+  useEffect(() => {
+    dispatch(fetchTutorials());
+  }, [dispatch]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
-    <div>
-      <button><Link to="/add-tutorial">Add New Tutorial</Link></button>
-      <ul>
-        {tutorials.map(tutorial => (
-          <li key={tutorial.id}>
-            <h3>{tutorial.title}</h3>
-            <p>Views: {tutorial.views}</p>
-            <button><Link to={`/tutorial/${tutorial.id}`}>View</Link></button>
-          </li>
+    <div className="grid grid-nogutter">
+      <h1 className="col-12 text-2xl mb-4">Gardening Tutorials</h1>
+
+      {/* Search and filter section */}
+      <div className="col-12 flex justify-content-between align-items-center mb-4">
+        <div className="flex align-items-center">
+          <select className="p-inputtext">
+            <option value="">Category</option>
+            {/* Add categories here */}
+          </select>
+        </div>
+        <div className="flex align-items-center">
+          <input type="text" className="p-inputtext p-2" placeholder="Search for anything" />
+        </div>
+      </div>
+
+      {/* Tutorials Grid */}
+      <div className="col-12 grid">
+        {tutorials.map((tutorial) => (
+          <div key={tutorial.id} className="col-12 md:col-6 lg:col-4 mb-4">
+            <div className="p-card">
+              <img src={tutorial.thumbnail_url} alt={tutorial.title} className="w-full" />
+              <div className="p-card-content">
+                <h3>{tutorial.title}</h3>
+                <p>{tutorial.description}</p>
+              </div>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
