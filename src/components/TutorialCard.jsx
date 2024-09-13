@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { FaEllipsisH } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { deleteTutorial } from '../redux/tutorialsSlice';
 import ConfirmationModal from './ConfirmationModal';
-import { useDispatch } from 'react-redux';
 
 const TutorialCard = ({ tutorial }) => {
   const [showPopover, setShowPopover] = useState(false);
@@ -37,24 +38,28 @@ const TutorialCard = ({ tutorial }) => {
   };
 
   const handleConfirmDelete = () => {
-    // dispatch(deleteTutorial(itemToDelete.id));
+    dispatch(deleteTutorial(itemToDelete.id));
 
     setIsModalOpen(false);
     setItemToDelete(null);
   };
   return (
-    <div onClick={handleViewPost} className="col-12 md:col-4 lg:col-3 md:m-3">
+    <div className="col-12 md:col-4 lg:col-3 md:m-3 cursor-pointer">
       <div>
         <img
           src={tutorial.thumbnail_url}
           alt={tutorial.title}
+          onClick={handleViewPost}
           className="w-full border-round-xl"
         />
-        <div className='flex'>
-          <h4 className="text-left font-light m-0 mt-2 text-base">
+        <div className="flex justify-content-between">
+          <h4
+            className="text-left font-light m-0 mt-2 text-base"
+            onClick={handleViewPost}
+          >
             {tutorial.title}
           </h4>
-          <div className="relative flex align-items-center">
+          <div className="relative flex align-items-center ">
             <FaEllipsisH
               className="text-grey cursor-pointer rotate-90"
               onClick={togglePopover}
