@@ -1,14 +1,15 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import DashboardPage from './pages/DashboardPage';
-import TutorialsPage from './pages/TutorialsPage';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import AddTutorial from './components/AddTutorial';
 import TutorialDetail from './components/TutorialDetail';
+import DashboardPage from './pages/DashboardPage';
+import TutorialsPage from './pages/TutorialsPage';
 
 function App() {
   return (
     <Router>
       <div className="App">
+        <NavBar />
         <Routes>
           {/* Define routes for each page */}
           <Route path="/" element={<DashboardPage />} />
