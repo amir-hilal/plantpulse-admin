@@ -1,12 +1,16 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import api from '../services/api';
 
-// Async action to fetch tutorials with pagination
+// Async thunk to fetch tutorials
 export const fetchTutorials = createAsyncThunk(
   'tutorials/fetchTutorials',
-  async (page = 1) => {
-    const response = await api.get(`/tutorials?page=${page}`);
-    return response.data;
+  async (page, { rejectWithValue }) => {
+    try {
+      const response = await api.get(`/tutorials?page=${page}`);
+      return response.data; // Assuming the API returns data with pagination
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
   }
 );
 
@@ -14,32 +18,36 @@ const tutorialsSlice = createSlice({
   name: 'tutorials',
   initialState: {
     tutorials: [],
+    currentPage: 1,
     loading: false,
     error: null,
-    pagination: {
-      current_page: 1,
-      total_pages: 1,
+    hasMore: true,
+  },
+  reducers: {
+    resetTutorials(state) {
+      state.tutorials = [];
+      state.currentPage = 1;
+      state.hasMore = true;
     },
   },
-  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchTutorials.pending, (state) => {
         state.loading = true;
       })
       .addCase(fetchTutorials.fulfilled, (state, action) => {
+        state.tutorials = [...state.tutorials, ...action.payload.data];
         state.loading = false;
-        state.tutorials = action.payload.data;
-        state.pagination = {
-          current_page: action.payload.current_page,
-          total_pages: action.payload.total_pages,
-        };
+        state.hasMore = action.payload.next_page_url !== null;
+        state.currentPage += 1;
       })
       .addCase(fetchTutorials.rejected, (state, action) => {
+        state.error = action.payload;
         state.loading = false;
-        state.error = action.error.message;
       });
   },
 });
+
+export const { resetTutorials } = tutorialsSlice.actions;
 
 export default tutorialsSlice.reducer;
