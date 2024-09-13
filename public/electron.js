@@ -11,7 +11,7 @@ function createWindow () {
     }
   });
 
-  mainWindow.loadURL('http://localhost:3000'); // Load React app
+  mainWindow.loadURL('http://localhost:2000'); // Load React app
 }
 
 app.whenReady().then(() => {
