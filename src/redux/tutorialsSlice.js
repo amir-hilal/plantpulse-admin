@@ -1,17 +1,25 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../services/api';
 
-export const fetchTutorials = createAsyncThunk('tutorials/fetchTutorials', async () => {
-  const response = await api.get('/tutorials');
-  return response.data;
-});
+// Async action to fetch tutorials with pagination
+export const fetchTutorials = createAsyncThunk(
+  'tutorials/fetchTutorials',
+  async (page = 1) => {
+    const response = await api.get(`/tutorials?page=${page}`);
+    return response.data;
+  }
+);
 
 const tutorialsSlice = createSlice({
   name: 'tutorials',
   initialState: {
     tutorials: [],
     loading: false,
-    error: null
+    error: null,
+    pagination: {
+      current_page: 1,
+      total_pages: 1,
+    },
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -21,13 +29,17 @@ const tutorialsSlice = createSlice({
       })
       .addCase(fetchTutorials.fulfilled, (state, action) => {
         state.loading = false;
-        state.tutorials = action.payload;
+        state.tutorials = action.payload.data;
+        state.pagination = {
+          current_page: action.payload.current_page,
+          total_pages: action.payload.total_pages,
+        };
       })
       .addCase(fetchTutorials.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
-  }
+  },
 });
 
 export default tutorialsSlice.reducer;
