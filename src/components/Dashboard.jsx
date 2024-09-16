@@ -90,10 +90,10 @@ const Dashboard = () => {
 
   return (
     <div
-      className=" p-5 text-white mx-6 flex justify-content"
+      className=" p-5 text-white mx-6 flex justify-content-center"
       style={{ borderRadius: 'var(--border-radius)' , height:'75vh'}}
     >
-      <div style={{ height: '80%'}}>
+      <div style={{ height: '80%',width:'80%'}}>
         <Bar data={chartData} options={chartOptions} />
       </div>
     </div>

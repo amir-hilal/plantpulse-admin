@@ -4,7 +4,7 @@ import Dashboard from '../components/Dashboard';
 const DashboardPage = () => {
   return (
     <div>
-      <h1>Admin Dashboard</h1>
+      <h1 className='text-center'>Admin Dashboard</h1>
       <Dashboard />
     </div>
   );
