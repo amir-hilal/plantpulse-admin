@@ -27,8 +27,8 @@ api.interceptors.response.use(
     console.log(error);
     if (error.response) {
       if (error.response.status === 401) {
-        localStorage.removeItem('token');
-        window.location.href = '/login';
+        // localStorage.removeItem('token');
+        // window.location.href = '/login';
         toast.error('Unauthorized! Please login again.'); // Toast for 401 error
       } else if (error.response.status >= 500) {
         toast.error('Server error! Please try again later.'); // Toast for server errors (500+)
