@@ -2,7 +2,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const api = axios.create({
-  baseURL: 'http://127.0.0.1:8000/api',
+  baseURL: 'https://api.plantpulselb.com/api',
 });
 
 api.interceptors.request.use(
@@ -27,8 +27,8 @@ api.interceptors.response.use(
     console.log(error);
     if (error.response) {
       if (error.response.status === 401) {
-        // localStorage.removeItem('token');
-        // window.location.href = '/login';
+        localStorage.removeItem('token');
+        window.location.href = '/login';
         toast.error('Unauthorized! Please login again.'); // Toast for 401 error
       } else if (error.response.status >= 500) {
         toast.error('Server error! Please try again later.'); // Toast for server errors (500+)
